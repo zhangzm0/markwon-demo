@@ -1,5 +1,6 @@
 package com.demo.markwon;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,7 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import io.noties.markwon.Markwon;
+import io.noties.markwon.core.CorePlugin;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.ext.tables.TablePlugin;
+import io.noties.markwon.ext.tasklist.TaskListPlugin;
+import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.image.ImagesPlugin;
+import io.noties.markwon.image.glide.GlideImagesPlugin;
+import io.noties.markwon.linkify.LinkifyPlugin;
+import io.noties.markwon.syntax.Prism4jThemeDarkula;
+import io.noties.markwon.syntax.SyntaxHighlightPlugin;
+import io.noties.prism4j.Prism4j;
+
 import java.util.Random;
 
 public class PreviewFragment extends Fragment {
@@ -33,8 +47,8 @@ public class PreviewFragment extends Fragment {
         btnRefresh = view.findViewById(R.id.btnRefresh);
         btnAI = view.findViewById(R.id.btnAI);
 
-        // 初始化Markwon
-        markwon = Markwon.create(requireContext());
+        // 初始化Markwon（满配版本）
+        markwon = createFullFeaturedMarkwon(requireContext());
         handler = new Handler(Looper.getMainLooper());
         random = new Random();
 
@@ -42,6 +56,23 @@ public class PreviewFragment extends Fragment {
         btnAI.setOnClickListener(v -> simulateAIResponse());
 
         return view;
+    }
+
+    private Markwon createFullFeaturedMarkwon(Context context) {
+        // 创建语法高亮所需的Prism4j实例
+        final Prism4j prism4j = new Prism4j(new GrammarLocator());
+
+        return Markwon.builder(context)
+			.usePlugin(CorePlugin.create())
+			.usePlugin(StrikethroughPlugin.create())
+			.usePlugin(TaskListPlugin.create(context))
+			.usePlugin(TablePlugin.create(context))
+			.usePlugin(LinkifyPlugin.create())
+			.usePlugin(HtmlPlugin.create())
+			.usePlugin(ImagesPlugin.create())
+			.usePlugin(GlideImagesPlugin.create())
+			.usePlugin(SyntaxHighlightPlugin.create(prism4j, Prism4jThemeDarkula.create()))
+			.build();
     }
 
     public void setMarkdownText(String text) {
@@ -107,6 +138,8 @@ public class PreviewFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         // 移除所有回调，防止内存泄漏
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 }
