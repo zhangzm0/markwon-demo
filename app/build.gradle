@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' // 如果是Java项目，这个可以不要
 }
 
 android {
@@ -29,24 +30,12 @@ android {
 }
 
 dependencies {
-    // AndroidX 核心库
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.10.1'
-    
-    // Material Design
     implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     
-    // ViewPager2
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    
-    // Fragment
-    implementation 'androidx.fragment:fragment:1.6.1'
-    
-    // Markwon 核心库
+    // Markwon 依赖
     implementation 'io.noties.markwon:core:4.6.2'
-    
-    // Markwon 扩展（根据需要选择）
-
     implementation 'io.noties.markwon:editor:4.6.2'
     implementation 'io.noties.markwon:ext-strikethrough:4.6.2'
     implementation 'io.noties.markwon:ext-tables:4.6.2'
@@ -57,9 +46,11 @@ dependencies {
     implementation 'io.noties.markwon:image-glide:4.6.2'
     
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    // 测试依赖
+    
+    // Glide 用于图片加载
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
