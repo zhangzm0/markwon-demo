@@ -1,76 +1,36 @@
-plugins {
-    id 'com.android.application'
-    // 如果你完全不用 Kotlin 源码，可以不加 kotlin-android
-    // id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
 
 android {
-    compileSdk 34
+    compileSdkVersion 30
+    buildToolsVersion "33.0.0"
 
     defaultConfig {
         applicationId "com.demo.markwon"
-        minSdk 21
-        targetSdk 34
+        minSdkVersion 16
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    packagingOptions {
-        // 防止 META-INF 重复文件导致构建失败
-        pickFirst 'META-INF/DEPENDENCIES'
-        pickFirst 'META-INF/AL2.0'
-        pickFirst 'META-INF/LGPL2.1'
-    }
-}
-
-configurations.all {
-    // 强制统一 Kotlin 版本，避免重复
-    resolutionStrategy {
-        force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
-        force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22'
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'io.noties.markwon:core:4.6.2'
+    implementation 'io.noties.markwon:editor:4.6.2'
+    implementation 'io.noties.markwon:ext-strikethrough:4.6.2'
+    implementation 'io.noties.markwon:ext-tables:4.6.2'
+    implementation 'io.noties.markwon:ext-tasklist:4.6.2'
+    implementation 'io.noties.markwon:html:4.6.2'
+    implementation 'io.noties.markwon:linkify:4.6.2'
+    implementation 'io.noties.markwon:image:4.6.2'
+    implementation 'io.noties.markwon:image-glide:4.6.2'
+    
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-
-    def markwon_version = '4.6.2'
-
-    // 核心
-    implementation "io.noties.markwon:core:$markwon_version"
-
-    // 扩展：按需引入，统一排除重复 kotlin 模块
-    implementation("io.noties.markwon:image-coil:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:ext-latex:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:ext-tables:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:ext-tasklist:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:html:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:syntax-highlight:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:linkify:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
-    implementation("io.noties.markwon:ext-strikethrough:$markwon_version") {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    }
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
 }
-

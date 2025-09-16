@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <Button
-            android:id="@+id/btn_refresh"
-            android:text="刷新"
-            android:layout_marginEnd="8dp"
+            android:id="@+id/btnRefresh"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_marginEnd="4dp"
+            android:text="刷新" />
 
         <Button
-            android:id="@+id/btn_stream"
-            android:text="AI 流式回答"
+            android:id="@+id/btnAI"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_marginStart="4dp"
+            android:text="AI回答" />
+
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/preview"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:lineSpacingExtra="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
-</LinearLayout>
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+    </ScrollView>
+
+</LinearLayout>
