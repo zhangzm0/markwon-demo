@@ -1,26 +1,52 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "33.0.0"
+    namespace 'com.demo.markwon'
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.demo.markwon"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
+    // AndroidX 核心库
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    
+    // Material Design
+    implementation 'com.google.android.material:material:1.9.0'
+    
+    // ViewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    
+    // Fragment
+    implementation 'androidx.fragment:fragment:1.6.1'
+    
+    // Markwon 核心库
     implementation 'io.noties.markwon:core:4.6.2'
+    
+    // Markwon 扩展（根据需要选择）
+
     implementation 'io.noties.markwon:editor:4.6.2'
     implementation 'io.noties.markwon:ext-strikethrough:4.6.2'
     implementation 'io.noties.markwon:ext-tables:4.6.2'
@@ -33,4 +59,8 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
+    // 测试依赖
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
